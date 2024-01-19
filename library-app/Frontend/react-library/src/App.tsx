@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
+import { Navbar } from './layouts/NavbarAndFooter/navbar';
+import { ExploreTopBooks } from './layouts/HomePage/ExploreTopBooks';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to Full-Stack Application</h1>
+    <div>
+      <Navbar/>
+      <ExploreTopBooks/>
     </div>
+    
   );
 }
 
