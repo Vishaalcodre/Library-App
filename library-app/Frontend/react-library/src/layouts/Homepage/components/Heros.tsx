@@ -5,7 +5,7 @@ export const Heros = () => {
                 <div className="row g-0 mt-5">
                     <div className="col-sm-6 col-md-6 ">
                         <div className="col-image-left">
-                        <img src={require("./../../Images/PublicImages/image-1.jpg")} width='632' height='400' alt="fireplace" />
+                        <img src={require("./../../../Images/PublicImages/image-1.jpg")} width='632' height='400' alt="fireplace" />
                         </div>
                     </div>
                     <div className="col-4 col-md-4 container justify-content-center align-items-center">
@@ -35,7 +35,7 @@ export const Heros = () => {
                     </div>
                     <div className="col-sm-6 col-md-6">
                         <div className="col-image-right">
-                            <img src={require("./../../Images/PublicImages/image-4.jpg")} width='650' height='400' alt="mountain" />
+                            <img src={require("./../../../Images/PublicImages/image-4.jpg")} width='650' height='400' alt="mountain" />
                         </div>
                     </div>
                 </div>
