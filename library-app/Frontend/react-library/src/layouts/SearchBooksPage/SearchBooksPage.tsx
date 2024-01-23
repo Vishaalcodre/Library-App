@@ -15,6 +15,7 @@ export const SearchBooksPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState('');
     const [searchUrl, setSearchUrl] = useState('');
+    const [category, setCategory] = useState('Book Category');
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -95,6 +96,23 @@ export const SearchBooksPage = () => {
         }
     }
 
+    const categoryField = (value: string) => {
+        if(value.toLowerCase() === 'fe' ||
+            value.toLocaleLowerCase() === 'be' ||
+            value.toLocaleLowerCase() === 'data' ||
+            value.toLocaleLowerCase() === 'devops'
+        )
+        {
+            setCategory(value);
+            setSearchUrl(`/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`);
+        }
+
+        else{
+            setCategory('All');
+            setSearchUrl(`page=0&size=${booksPerPage}`)
+        }
+    }
+
     const indexOfLastBook: number = currentPage * booksPerPage;
 
     const indexOfFirstBook: number = indexOfLastBook - booksPerPage;
@@ -125,34 +143,34 @@ export const SearchBooksPage = () => {
                                 <button className="btn btn-secondary dropdown-toggle" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                     aria-expanded="false" >
-                                    Category
+                                    {category}
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li>
+                                    <li onClick={() => categoryField('All')}>
                                         <a href="#" className="dropdown-item">
                                             All
                                         </a>
                                     </li>
 
-                                    <li>
+                                    <li onClick={() => categoryField('FE')}>
                                         <a href="#" className="dropdown-item">
                                             Frontend
                                         </a>
                                     </li>
 
-                                    <li>
+                                    <li onClick={() => categoryField('BE')}>
                                         <a href="#" className="dropdown-item">
                                             Backend
                                         </a>
                                     </li>
 
-                                    <li>
+                                    <li  onClick={() => categoryField('Data')}>
                                         <a href="#" className="dropdown-item">
                                             Data
                                         </a>
                                     </li>
 
-                                    <li>
+                                    <li  onClick={() => categoryField('DevOps')}>
                                         <a href="#" className="dropdown-item">
                                             DevOps
                                         </a>
