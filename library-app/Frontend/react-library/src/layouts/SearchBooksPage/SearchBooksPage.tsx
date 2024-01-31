@@ -101,17 +101,16 @@ export const SearchBooksPage = () => {
 
     const categoryField = (value: string) => {
         setCurrentPage(1);
-        if(value.toLowerCase() === 'fe' ||
+        if (value.toLowerCase() === 'fe' ||
             value.toLocaleLowerCase() === 'be' ||
             value.toLocaleLowerCase() === 'data' ||
             value.toLocaleLowerCase() === 'devops'
-        )
-        {
+        ) {
             setCategory(value);
             setSearchUrl(`/search/findByCategory?category=${value}&page=<pageNumber>&size=${booksPerPage}`);
         }
 
-        else{
+        else {
             setCategory('All');
             setSearchUrl(`page=<pageNumber>&size=${booksPerPage}`)
         }
@@ -130,6 +129,7 @@ export const SearchBooksPage = () => {
         <div>
             <div className="container">
                 <div>
+
                     <div className="row mt-5">
                         <div className="col-6">
                             <div className="d-flex">
@@ -168,13 +168,13 @@ export const SearchBooksPage = () => {
                                         </a>
                                     </li>
 
-                                    <li  onClick={() => categoryField('Data')}>
+                                    <li onClick={() => categoryField('Data')}>
                                         <a href="#" className="dropdown-item">
                                             Data
                                         </a>
                                     </li>
 
-                                    <li  onClick={() => categoryField('DevOps')}>
+                                    <li onClick={() => categoryField('DevOps')}>
                                         <a href="#" className="dropdown-item">
                                             DevOps
                                         </a>
@@ -182,6 +182,7 @@ export const SearchBooksPage = () => {
                                 </ul>
                             </div>
                         </div>
+
                     </div>
                     {totalAmountOfBooks > 0 ?
                         <>
@@ -191,6 +192,9 @@ export const SearchBooksPage = () => {
                             <p>
                                 {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
                             </p>
+                            {totalPages > 1 &&
+                                <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate} />
+                            }
                             {books.map(book => (
                                 <SearchBook book={book} key={book.id} />
                             ))}
