@@ -1,11 +1,17 @@
+import { useOktaAuth } from "@okta/okta-react";
+import { Link } from "react-router-dom";
+
 export const Heros = () => {
+
+    const { authState } = useOktaAuth();
+
     return (
         <div>
             <div className="d-none d-lg-block">
                 <div className="row g-0 mt-5">
                     <div className="col-sm-6 col-md-6 ">
                         <div className="col-image-left">
-                        <img src={require("./../../../Images/PublicImages/image-1.jpg")} width='632' height='400' alt="fireplace" />
+                            <img src={require("./../../../Images/PublicImages/image-1.jpg")} width='632' height='400' alt="fireplace" />
                         </div>
                     </div>
                     <div className="col-4 col-md-4 container justify-content-center align-items-center">
@@ -16,7 +22,15 @@ export const Heros = () => {
                                 Either to learn or master a skill,
                                 We will be able to provide the top content for you!
                             </p>
-                            <a href="#" className="btn btn-lg main-color text-white">Sign up</a>
+                            {authState?.isAuthenticated ?
+                                <Link to="search" className="btn btn-lg main-color text-white" type="button">
+                                    Explore top books
+                                </Link>
+                                :
+                                <Link to="/login" className="btn btn-lg main-color text-white">Sign up</Link>
+
+                            }
+
                         </div>
 
                     </div>
@@ -53,7 +67,15 @@ export const Heros = () => {
                                 Either to learn or master a skill,
                                 We will be able to provide the top content for you!
                             </p>
-                            <a href="#" className="btn btn-lg main-color text-white">Sign up</a>
+                            {authState?.isAuthenticated ?
+                                <Link type="button" className="btn main-color btn-lg text-white" to="search">
+                                    Explore top books
+                                </Link>
+                                :
+                                <Link to="/login" className="btn btn-lg main-color text-white">Sign up</Link>
+                            }
+
+
                         </div>
                     </div>
                     <div className="m-2">
