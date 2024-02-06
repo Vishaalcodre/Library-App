@@ -1,10 +1,13 @@
 package com.maktub.library.controller;
 
 import com.maktub.library.entity.Book;
+import com.maktub.library.responsemodels.ShelfCurrentLoansResponse;
 import com.maktub.library.service.BookService;
 import com.maktub.library.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -16,6 +19,14 @@ public class BookController {
     @Autowired
     private BookController(BookService bookService) {
         this.bookService = bookService;
+    }
+
+    @GetMapping("/secure/currentloans")
+    public List<ShelfCurrentLoansResponse> currentLoans(@RequestHeader(value = "Authorization") String token)
+            throws Exception
+    {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+        return bookService.currentLoans(userEmail);
     }
 
     @PutMapping("/secure/checkout")
@@ -38,5 +49,24 @@ public class BookController {
 
         return bookService.currentLoansCount(userEmail);
     }
+
+    @PutMapping("/secure/return")
+    public void returnBook(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId)
+        throws Exception
+    {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+
+        bookService.returnBook(userEmail, bookId);
+    }
+
+    @PutMapping("/secure/renew/loan")
+    public void renewLoan(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId)
+            throws Exception {
+
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+
+        bookService.renewLoan(userEmail, bookId);
+    }
+
 
 }
