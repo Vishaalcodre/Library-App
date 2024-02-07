@@ -2,6 +2,7 @@ package com.maktub.library.config;
 
 
 import com.maktub.library.entity.Book;
+import com.maktub.library.entity.Message;
 import com.maktub.library.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -19,9 +20,11 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         config.exposeIdsFor(Book.class);
         config.exposeIdsFor(Review.class);
+        config.exposeIdsFor(Message.class);
 
         disableHttpMethods(Book.class, config, theUnsupportedActions);
         disableHttpMethods(Review.class, config, theUnsupportedActions);
+        disableHttpMethods(Message.class, config, theUnsupportedActions);
 
 //        Configure CORS Mapping
         cors.addMapping(config.getBasePath() + "/**")
