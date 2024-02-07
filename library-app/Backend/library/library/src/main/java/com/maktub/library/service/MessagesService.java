@@ -2,6 +2,7 @@ package com.maktub.library.service;
 
 import com.maktub.library.dao.MessageRepository;
 import com.maktub.library.entity.Message;
+import com.maktub.library.requestmodels.AdminQuestionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,20 @@ public class MessagesService {
         Message message = new Message(messageRequest.getTitle(), messageRequest.getQuestion());
         message.setUserEmail(userEmail);
         messageRepository.save(message);
+    }
+
+    public void putMessage(AdminQuestionRequest adminQuestionRequest, String userEmail) throws Exception{
+
+        Optional<Message> message = messageRepository.findById(adminQuestionRequest.getId());
+
+        if (!message.isPresent()){
+            throw new Exception("Message not found");
+        }
+
+        message.get().setAdminEmail(userEmail);
+        message.get().setResponse(adminQuestionRequest.getResponse());
+        message.get().setClosed(true);
+        messageRepository.save(message.get());
     }
 
 

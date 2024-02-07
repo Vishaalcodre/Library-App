@@ -1,6 +1,7 @@
 package com.maktub.library.controller;
 
 import com.maktub.library.entity.Message;
+import com.maktub.library.requestmodels.AdminQuestionRequest;
 import com.maktub.library.service.MessagesService;
 import com.maktub.library.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,19 @@ public class MessagesController {
         messagesService.postMessage(messageRequest, userEmail);
     }
 
+    @PutMapping("/secure/admin/message")
+    public void putMessage(@RequestHeader(value = "Authorization") String token,
+                           @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception{
+
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+        String admin = ExtractJWT.payloadJWTExtraction(token, "\"userType\"");
+
+        if (admin == null || !admin.equals("admin")){
+            throw new Exception("Administration page only.");
+        }
+
+        messagesService.putMessage(adminQuestionRequest, userEmail);
+    }
 
 
 }
